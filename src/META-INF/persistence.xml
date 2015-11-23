@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+	<!--  persistence unit name used in web.xml -->
+	<!--  See JPA spec 5.5: PuId -->
+	<!--  Must specify JTA transaction type. -->
+	<persistence-unit name="TestServicePU" transaction-type="JTA">
+		
+		<!--  For Liberty, data source names must match the ones configured in server.xml -->
+		<jta-data-source>jdbc/DBConnection</jta-data-source>
+    	<non-jta-data-source>jdbc/DBConnectionNonXA</non-jta-data-source>
+		<class>com.test.service.jpa.ParentEntity</class>
+		<class>com.test.service.jpa.MinionEntity</class>
+		<class>com.test.service.jpa.DBEntity</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<!-- class>com.ibm.mdm.graph.config.services.DBUtility</class -->
+		<properties>
+			<property name="eclipselink.target-database" value="Derby" />
+			<property name="eclipselink.target-server" value="WebSphere_Liberty"/>
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />			
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"	value="database" />
+			<property name="eclipselink.logging.level" value="FINEST"/>
+
+			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+			<property name="javax.persistence.schema-generation.scripts.action" value="none"/>
+		</properties>
+	</persistence-unit>
+</persistence>
